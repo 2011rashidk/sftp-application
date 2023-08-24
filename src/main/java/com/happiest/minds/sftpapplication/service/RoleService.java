@@ -9,22 +9,22 @@ import org.springframework.validation.BindingResult;
 @Service
 public class RoleService {
     public ResponseEntity<Response> createRole(RoleDTO roleDTO, BindingResult bindingResult) {
-
+        return null;
     }
 
     public ResponseEntity<Response> getRoles() {
-
+        return null;
     }
 
     public ResponseEntity<Response> getRole(Integer roleId) {
-
+        return null;
     }
 
     public ResponseEntity<Response> updateRole(RoleDTO roleDTO, BindingResult bindingResult) {
-
+        return null;
     }
 
     public ResponseEntity<Response> deleteRole(Integer roleId) {
-
+        return null;
     }
 }
