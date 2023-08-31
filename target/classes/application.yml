@@ -1,0 +1,10 @@
+user.management.base.url:
+  loginURL: http://localhost:8082/api/user/management/login
+  userURL: http://localhost:8082/api/user/management/user
+  roleURL: http://localhost:8082/api/user/management/role
+  permissionURL: http://localhost:8082/api/user/management/permission
+  userRoleURL: http://localhost:8082/api/user/management/user-role
+  rolePermissionURL: http://localhost:8082/api/user/management/role-permission
+  employeeURL: http://localhost:8082/api/user/management/employee
+  organizationURL: http://localhost:8082/api/user/management/organization
+
