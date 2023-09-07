@@ -25,33 +25,34 @@ public class OrganizationController {
 
     @PostMapping
     public ResponseEntity<Organization> createOrganization(@Valid @RequestBody OrganizationDTO organizationDTO) {
-        log.info("organizationDTO: {}", organizationDTO);
+        log.info(ORGANIZATION_DTO.getValue(), organizationDTO);
         Organization organization = organizationService.createOrganization(organizationDTO);
-        log.info("organization: {}", organization);
+        log.info(ORGANIZATION.getValue(), organization);
         return new ResponseEntity<>(organization, HttpStatus.CREATED);
     }
 
     @GetMapping("{orgId}")
     public ResponseEntity<Organization> getOrganizationById(@Valid @NonNull @PathVariable Integer orgId) {
-        log.info("orgId: {}", orgId);
+        log.info(ID.getValue(), orgId);
         Organization organization = organizationService.getOrganizationById(orgId);
-        log.info("organization: {}", organization);
+        log.info(ORGANIZATION.getValue(), organization);
         return new ResponseEntity<>(organization, HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<Organization>> getOrganizations() {
         List<Organization> organizations = organizationService.getOrganizations();
-        log.info("organizations: {}", organizations);
+        log.info(ORGANIZATION.getValue(), organizations);
         return new ResponseEntity<>(organizations, HttpStatus.OK);
     }
 
     @PutMapping("{orgId}")
     public ResponseEntity<Organization> updateOrganizationById(@Valid @NonNull @PathVariable Integer orgId,
                                                                @Valid @RequestBody OrganizationDTO organizationDTO) {
-        log.info("orgId: {}, organizationDTO: {}", orgId, organizationDTO);
+        log.info(ID.getValue(), orgId);
+        log.info(ORGANIZATION_DTO.getValue(), organizationDTO);
         Organization organization = organizationService.updateOrganizationById(orgId, organizationDTO);
-        log.info("organization: {}", organization);
+        log.info(ORGANIZATION.getValue(), organization);
         if (organization != null) {
             return new ResponseEntity<>(organization, HttpStatus.OK);
         }
@@ -61,7 +62,7 @@ public class OrganizationController {
 
     @DeleteMapping("{orgId}")
     public ResponseEntity<HttpStatus> deleteOrganizationById(@Valid @NonNull @PathVariable Integer orgId) {
-        log.info("orgId: {}", orgId);
+        log.info(ID.getValue(), orgId);
         return organizationService.deleteOrganizationById(orgId);
     }
 

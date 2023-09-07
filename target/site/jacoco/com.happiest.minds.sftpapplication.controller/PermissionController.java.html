@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PermissionController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SFTP Application</a> &gt; <a href="index.source.html" class="el_package">com.happiest.minds.sftpapplication.controller</a> &gt; <span class="el_source">PermissionController.java</span></div><h1>PermissionController.java</h1><pre class="source lang-java linenums">package com.happiest.minds.sftpapplication.controller;
+
+import com.happiest.minds.sftpapplication.request.PermissionDTO;
+import com.happiest.minds.sftpapplication.response.Permission;
+import com.happiest.minds.sftpapplication.service.PermissionService;
+import jakarta.validation.Valid;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static com.happiest.minds.sftpapplication.enums.Constants.NO_DATA_FOUND;
+
+@RestController
+@RequestMapping(&quot;api/sftp/application/permission&quot;)
+<span class="fc" id="L20">@Slf4j</span>
+<span class="fc" id="L21">public class PermissionController {</span>
+    @Autowired
+    public PermissionService permissionService;
+
+    @PostMapping
+    public ResponseEntity&lt;Permission&gt; createPermission(@Valid @RequestBody PermissionDTO permissionDTO) {
+<span class="fc" id="L27">        log.info(&quot;permissionDTO: {}&quot;, permissionDTO);</span>
+<span class="fc" id="L28">        Permission permission = permissionService.createPermission(permissionDTO);</span>
+<span class="fc" id="L29">        log.info(&quot;permission: {}&quot;, permission);</span>
+<span class="fc" id="L30">        return new ResponseEntity&lt;&gt;(permission, HttpStatus.CREATED);</span>
+    }
+
+    @GetMapping(&quot;{permissionId}&quot;)
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">    public ResponseEntity&lt;Permission&gt; getPermissionById(@Valid @NonNull @PathVariable Integer permissionId) {</span>
+<span class="fc" id="L35">        log.info(&quot;permissionId: {}&quot;, permissionId);</span>
+<span class="fc" id="L36">        Permission permission = permissionService.getPermissionById(permissionId);</span>
+<span class="fc" id="L37">        log.info(&quot;permission: {}&quot;, permission);</span>
+<span class="fc" id="L38">        return new ResponseEntity&lt;&gt;(permission, HttpStatus.OK);</span>
+    }
+
+    @GetMapping
+    public ResponseEntity&lt;List&lt;Permission&gt;&gt; getAllPermissions() {
+<span class="fc" id="L43">        List&lt;Permission&gt; permissions = permissionService.getAllPermissions();</span>
+<span class="fc" id="L44">        log.info(&quot;permissions: {}&quot;, permissions);</span>
+<span class="fc" id="L45">        return new ResponseEntity&lt;&gt;(permissions, HttpStatus.OK);</span>
+    }
+
+    @PutMapping(&quot;{permissionId}&quot;)
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">    public ResponseEntity&lt;Permission&gt; updatePermissionById(@Valid @NonNull @PathVariable Integer permissionId,</span>
+                                                           @Valid @RequestBody PermissionDTO permissionDTO) {
+<span class="fc" id="L51">        log.info(&quot;permissionId: {}, permissionDTO: {}&quot;, permissionId, permissionDTO);</span>
+<span class="fc" id="L52">        Permission permission = permissionService.updatePermissionById(permissionId, permissionDTO);</span>
+<span class="fc" id="L53">        log.info(&quot;permission: {}&quot;, permission);</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">        if (permission != null) {</span>
+<span class="fc" id="L55">            return new ResponseEntity&lt;&gt;(permission, HttpStatus.OK);</span>
+        }
+<span class="nc" id="L57">        log.error(NO_DATA_FOUND.getValue().concat(permission.getPermissionId().toString()));</span>
+<span class="nc" id="L58">        return new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND);</span>
+    }
+
+    @DeleteMapping(&quot;{permissionId}&quot;)
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">    public ResponseEntity&lt;HttpStatus&gt; deletePermissionById(@Valid @NonNull @PathVariable Integer permissionId) {</span>
+<span class="fc" id="L63">        log.info(&quot;permissionId: {}&quot;, permissionId);</span>
+<span class="fc" id="L64">        return permissionService.deletePermissionById(permissionId);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

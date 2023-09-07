@@ -24,24 +24,24 @@ public class RoleController {
 
     @PostMapping
     public ResponseEntity<Role> createRole(@RequestBody RoleDTO roleDTO) {
-        log.info("roleDTO: {}", roleDTO);
+        log.info(ROLE_DTO.getValue(), roleDTO);
         Role role = roleService.createRole(roleDTO);
-        log.info("role: {}", role);
+        log.info(ROLE.getValue(), role);
         return new ResponseEntity<>(role, HttpStatus.CREATED);
     }
 
     @GetMapping("{roleId}")
     public ResponseEntity<Role> getRoleById(@Valid @NonNull @PathVariable Integer roleId) {
-        log.info("roleId: {}", roleId);
+        log.info(ID.getValue(), roleId);
         Role role = roleService.getRoleById(roleId);
-        log.info("role: {}", role);
+        log.info(ROLE.getValue(), role);
         return new ResponseEntity<>(role, HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<Role>> getAllRoles() {
         List<Role> roles = roleService.getAllRoles();
-        log.info("roles: {}", roles);
+        log.info(ROLE.getValue(), roles);
         return new ResponseEntity<>(roles, HttpStatus.OK);
 
     }
@@ -49,9 +49,10 @@ public class RoleController {
     @PutMapping("{roleId}")
     public ResponseEntity<Role> updateRoleById(@Valid @NonNull @PathVariable Integer roleId,
                                                @Valid @RequestBody RoleDTO roleDTO) {
-        log.info("Input request:: roleId: {}, roleDTO: {}", roleId, roleDTO);
+        log.info(ID.getValue(), roleId);
+        log.info(ROLE_DTO.getValue(), roleDTO);
         Role role = roleService.updateRoleById(roleId, roleDTO);
-        log.info("role: {}", role);
+        log.info(ROLE.getValue(), role);
         if (role != null) {
             return new ResponseEntity<>(role, HttpStatus.OK);
         }
@@ -61,7 +62,7 @@ public class RoleController {
 
     @DeleteMapping("{roleId}")
     public ResponseEntity<HttpStatus> deleteRole(@Valid @NonNull @PathVariable Integer roleId) {
-        log.info("roleId: {}", roleId);
+        log.info(ID.getValue(), roleId);
         return roleService.deleteRoleById(roleId);
     }
 

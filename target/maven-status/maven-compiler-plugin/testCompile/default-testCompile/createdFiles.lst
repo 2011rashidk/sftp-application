@@ -1,0 +1,10 @@
+com\happiest\minds\sftpapplication\controller\OrganizationControllerTest.class
+com\happiest\minds\sftpapplication\controller\UserControllerTest.class
+com\happiest\minds\sftpapplication\controller\RolePermissionControllerTest.class
+com\happiest\minds\sftpapplication\controller\RoleControllerTest.class
+com\happiest\minds\sftpapplication\controller\TokenControllerTest.class
+com\happiest\minds\sftpapplication\controller\PermissionControllerTest.class
+com\happiest\minds\sftpapplication\controller\SftpControllerTest.class
+com\happiest\minds\sftpapplication\controller\EmployeeControllerTest.class
+com\happiest\minds\sftpapplication\controller\UserRoleControllerTest.class
+com\happiest\minds\sftpapplication\SftpApplicationTests.class

@@ -1,0 +1,6 @@
+projectKey=sftp-application
+serverUrl=http://localhost:9099
+serverVersion=10.1.0.73491
+dashboardUrl=http://localhost:9099/dashboard?id=sftp-application
+ceTaskId=AYppxSeGHiccYo0QDyGy
+ceTaskUrl=http://localhost:9099/api/ce/task?id=AYppxSeGHiccYo0QDyGy

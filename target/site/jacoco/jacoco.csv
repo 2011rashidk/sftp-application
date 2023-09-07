@@ -1,0 +1,49 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+SFTP Application,com.happiest.minds.sftpapplication.utility,RedisUtility,18,7,0,0,5,2,1,2,1,2
+SFTP Application,com.happiest.minds.sftpapplication.config,UserManagementBaseURL,320,35,70,0,8,1,47,9,12,9
+SFTP Application,com.happiest.minds.sftpapplication.dto,EmployeeDTO,337,45,70,0,1,10,47,10,12,10
+SFTP Application,com.happiest.minds.sftpapplication.request,PermissionDTO,65,10,14,0,0,2,11,3,4,3
+SFTP Application,com.happiest.minds.sftpapplication.request,UserRoleDTO,114,15,26,0,0,4,18,4,5,4
+SFTP Application,com.happiest.minds.sftpapplication.request,UserDTO,240,35,54,0,0,7,36,8,9,8
+SFTP Application,com.happiest.minds.sftpapplication.request,RolePermissionDTO,114,15,26,0,0,4,18,4,5,4
+SFTP Application,com.happiest.minds.sftpapplication.request,TokenDTO.TokenDTOBuilder,27,0,0,0,1,0,5,0,5,0
+SFTP Application,com.happiest.minds.sftpapplication.request,OrganizationDTO,100,15,22,0,0,3,16,4,5,4
+SFTP Application,com.happiest.minds.sftpapplication.request,RoleDTO,100,20,22,0,0,3,16,4,5,4
+SFTP Application,com.happiest.minds.sftpapplication.request,TokenDTO,122,6,22,0,4,2,20,2,9,2
+SFTP Application,com.happiest.minds.sftpapplication,SftpApplication,5,3,0,0,2,1,1,1,1,1
+SFTP Application,com.happiest.minds.sftpapplication.enums,Constants,98,0,0,0,17,0,3,0,3,0
+SFTP Application,com.happiest.minds.sftpapplication.service,TokenService,64,7,4,0,17,2,4,2,2,2
+SFTP Application,com.happiest.minds.sftpapplication.service,RoleService,197,7,2,0,43,2,15,2,14,2
+SFTP Application,com.happiest.minds.sftpapplication.service,UserRoleService,61,7,0,0,13,2,4,2,4,2
+SFTP Application,com.happiest.minds.sftpapplication.service,UserService,239,7,6,0,53,2,19,2,16,2
+SFTP Application,com.happiest.minds.sftpapplication.service,RolePermissionService,61,7,0,0,13,2,4,2,4,2
+SFTP Application,com.happiest.minds.sftpapplication.service,SftpService,250,10,4,0,51,2,7,2,5,2
+SFTP Application,com.happiest.minds.sftpapplication.service,UserService.new ParameterizedTypeReference() {...},6,0,0,0,1,0,1,0,1,0
+SFTP Application,com.happiest.minds.sftpapplication.service,PermissionService.new ParameterizedTypeReference() {...},6,0,0,0,1,0,1,0,1,0
+SFTP Application,com.happiest.minds.sftpapplication.service,RoleService.new ParameterizedTypeReference() {...},6,0,0,0,1,0,1,0,1,0
+SFTP Application,com.happiest.minds.sftpapplication.service,OrganizationService,239,7,6,0,53,2,19,2,16,2
+SFTP Application,com.happiest.minds.sftpapplication.service,OrganizationService.new ParameterizedTypeReference() {...},6,0,0,0,1,0,1,0,1,0
+SFTP Application,com.happiest.minds.sftpapplication.service,EmployeeService,259,7,6,0,58,2,20,2,17,2
+SFTP Application,com.happiest.minds.sftpapplication.service,PermissionService,239,7,6,0,53,2,19,2,16,2
+SFTP Application,com.happiest.minds.sftpapplication.service,EmployeeService.new ParameterizedTypeReference() {...},6,0,0,0,1,0,1,0,1,0
+SFTP Application,com.happiest.minds.sftpapplication.service,EmployeeService.new ParameterizedTypeReference() {...},6,0,0,0,1,0,1,0,1,0
+SFTP Application,com.happiest.minds.sftpapplication.exception,GlobalExceptionHandler,37,7,0,0,6,2,2,2,2,2
+SFTP Application,com.happiest.minds.sftpapplication.exception,DataNotFoundException,4,0,0,0,2,0,1,0,1,0
+SFTP Application,com.happiest.minds.sftpapplication.controller,RolePermissionController,0,35,0,0,0,8,0,4,0,4
+SFTP Application,com.happiest.minds.sftpapplication.controller,EmployeeController,21,99,1,1,4,22,2,7,1,7
+SFTP Application,com.happiest.minds.sftpapplication.controller,SftpController,0,38,0,0,0,8,0,5,0,5
+SFTP Application,com.happiest.minds.sftpapplication.controller,UserController,27,97,4,4,2,23,4,7,0,7
+SFTP Application,com.happiest.minds.sftpapplication.controller,UserRoleController,0,35,0,0,0,8,0,4,0,4
+SFTP Application,com.happiest.minds.sftpapplication.controller,PermissionController,28,97,4,4,2,23,4,7,0,7
+SFTP Application,com.happiest.minds.sftpapplication.controller,RoleController,39,86,5,3,5,20,5,6,1,6
+SFTP Application,com.happiest.minds.sftpapplication.controller,TokenController,0,23,0,0,0,5,0,3,0,3
+SFTP Application,com.happiest.minds.sftpapplication.controller,OrganizationController,28,97,4,4,2,23,4,7,0,7
+SFTP Application,com.happiest.minds.sftpapplication.response,Role,130,25,29,1,0,5,20,6,5,6
+SFTP Application,com.happiest.minds.sftpapplication.response,Permission,95,20,21,1,0,4,15,5,4,5
+SFTP Application,com.happiest.minds.sftpapplication.response,Employee,305,50,69,1,0,10,45,11,10,11
+SFTP Application,com.happiest.minds.sftpapplication.response,Organization,130,25,29,1,0,5,20,6,5,6
+SFTP Application,com.happiest.minds.sftpapplication.response,TokenResponse,227,8,45,1,5,1,36,2,13,2
+SFTP Application,com.happiest.minds.sftpapplication.response,User,235,40,53,1,0,8,35,9,8,9
+SFTP Application,com.happiest.minds.sftpapplication.response,RolePermission,95,20,21,1,0,4,15,5,4,5
+SFTP Application,com.happiest.minds.sftpapplication.response,UserRole,95,20,21,1,0,4,15,5,4,5
+SFTP Application,com.happiest.minds.sftpapplication.response,Response,159,8,29,1,4,2,25,2,10,2

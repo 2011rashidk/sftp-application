@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.happiest.minds.sftpapplication.enums.Constants.NO_DATA_FOUND;
+import static com.happiest.minds.sftpapplication.enums.Constants.*;
 
 @RestController
 @RequestMapping("api/sftp/application/permission")
@@ -24,33 +24,34 @@ public class PermissionController {
 
     @PostMapping
     public ResponseEntity<Permission> createPermission(@Valid @RequestBody PermissionDTO permissionDTO) {
-        log.info("permissionDTO: {}", permissionDTO);
+        log.info(PERMISSION_DTO.getValue(), permissionDTO);
         Permission permission = permissionService.createPermission(permissionDTO);
-        log.info("permission: {}", permission);
+        log.info(PERMISSION.getValue(), permission);
         return new ResponseEntity<>(permission, HttpStatus.CREATED);
     }
 
     @GetMapping("{permissionId}")
     public ResponseEntity<Permission> getPermissionById(@Valid @NonNull @PathVariable Integer permissionId) {
-        log.info("permissionId: {}", permissionId);
+        log.info(ID.getValue(), permissionId);
         Permission permission = permissionService.getPermissionById(permissionId);
-        log.info("permission: {}", permission);
+        log.info(PERMISSION.getValue(), permission);
         return new ResponseEntity<>(permission, HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<Permission>> getAllPermissions() {
         List<Permission> permissions = permissionService.getAllPermissions();
-        log.info("permissions: {}", permissions);
+        log.info(PERMISSION.getValue(), permissions);
         return new ResponseEntity<>(permissions, HttpStatus.OK);
     }
 
     @PutMapping("{permissionId}")
     public ResponseEntity<Permission> updatePermissionById(@Valid @NonNull @PathVariable Integer permissionId,
                                                            @Valid @RequestBody PermissionDTO permissionDTO) {
-        log.info("permissionId: {}, permissionDTO: {}", permissionId, permissionDTO);
+        log.info(ID.getValue(), permissionId);
+        log.info(PERMISSION_DTO.getValue(), permissionDTO);
         Permission permission = permissionService.updatePermissionById(permissionId, permissionDTO);
-        log.info("permission: {}", permission);
+        log.info(PERMISSION.getValue(), permission);
         if (permission != null) {
             return new ResponseEntity<>(permission, HttpStatus.OK);
         }
@@ -60,7 +61,7 @@ public class PermissionController {
 
     @DeleteMapping("{permissionId}")
     public ResponseEntity<HttpStatus> deletePermissionById(@Valid @NonNull @PathVariable Integer permissionId) {
-        log.info("permissionId: {}", permissionId);
+        log.info(ID.getValue(), permissionId);
         return permissionService.deletePermissionById(permissionId);
     }
 

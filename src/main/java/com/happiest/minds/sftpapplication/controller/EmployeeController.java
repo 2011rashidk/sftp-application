@@ -25,41 +25,45 @@ public class EmployeeController {
     EmployeeService employeeService;
 
     @PostMapping
-    public ResponseEntity<Employee> createEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
-        log.info("employeeDTO: {}", employeeDTO);
-        Employee employee = employeeService.createEmployee(employeeDTO);
-        log.info("employee:{}", employee);
+    public ResponseEntity<Employee> createEmployee(@Valid @RequestBody EmployeeDTO employeeDTO,
+                                                   @RequestHeader(name = "Authorization") String jwtToken) {
+        log.info(EMPLOYEE_DTO.getValue(), employeeDTO);
+        Employee employee = employeeService.createEmployee(employeeDTO, jwtToken);
+        log.info(EMPLOYEE.getValue(), employee);
         return new ResponseEntity<>(employee, HttpStatus.CREATED);
     }
 
     @PostMapping("employees")
-    public ResponseEntity<List<Employee>> createEmployees(@Valid @RequestBody List<EmployeeDTO> employeeDTOList) {
-        log.info("employeeDTOList: {}", employeeDTOList);
-        List<Employee> employees = employeeService.createEmployees(employeeDTOList);
-        log.info("employees:{}", employees);
+    public ResponseEntity<List<Employee>> createEmployees(@Valid @RequestBody List<EmployeeDTO> employeeDTOList,
+                                                          @RequestHeader(name = "Authorization") String jwtToken) {
+        log.info(EMPLOYEE_DTO.getValue(), employeeDTOList);
+        List<Employee> employees = employeeService.createEmployees(employeeDTOList, jwtToken);
+        log.info(EMPLOYEE.getValue(), employees);
         return new ResponseEntity<>(employees, HttpStatus.CREATED);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Employee> getEmployeeById(@Valid @NotEmpty @PathVariable String id) {
-        log.info("id: {}", id);
-        Employee employee = employeeService.getEmployeeById(id);
-        log.info("employee: {}", employee);
+    public ResponseEntity<Employee> getEmployeeById(@Valid @NotEmpty @PathVariable String id,
+                                                    @RequestHeader(name = "Authorization") String jwtToken) {
+        log.info(ID.getValue(), id);
+        Employee employee = employeeService.getEmployeeById(id, jwtToken);
+        log.info(EMPLOYEE.getValue(), employee);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<Employee>> getEmployees() {
-        List<Employee> employees = employeeService.getEmployees();
-        log.info("employees: {}", employees);
+    public ResponseEntity<List<Employee>> getEmployees(@RequestHeader(name = "Authorization") String jwtToken) {
+        List<Employee> employees = employeeService.getEmployees(jwtToken);
+        log.info(EMPLOYEE.getValue(), employees);
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<Employee> updateEmployeeById(@Valid @RequestBody EmployeeDTO employeeDTO) {
-        log.info("employeeDTO: {}", employeeDTO);
-        Employee employee = employeeService.updateEmployeeById(employeeDTO);
-        log.info("employee: {}", employee);
+    public ResponseEntity<Employee> updateEmployeeById(@Valid @RequestBody EmployeeDTO employeeDTO,
+                                                       @RequestHeader(name = "Authorization") String jwtToken) {
+        log.info(EMPLOYEE_DTO.getValue(), employeeDTO);
+        Employee employee = employeeService.updateEmployeeById(employeeDTO, jwtToken);
+        log.info(EMPLOYEE.getValue(), employee);
         if (employee != null) {
             return new ResponseEntity<>(employee, HttpStatus.OK);
         }
@@ -68,9 +72,10 @@ public class EmployeeController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<HttpStatus> deleteEmployeeById(@Valid @NotEmpty @PathVariable String id) {
-        log.info("id: {}", id);
-        return employeeService.deleteEmployeeById(id);
+    public ResponseEntity<HttpStatus> deleteEmployeeById(@Valid @NotEmpty @PathVariable String id,
+                                                         @RequestHeader(name = "Authorization") String jwtToken) {
+        log.info(ID.getValue(), id);
+        return employeeService.deleteEmployeeById(id, jwtToken);
     }
 
 }

@@ -26,33 +26,34 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> createUser(@Valid @RequestBody UserDTO userDTO) {
-        log.info("userDTO: {}", userDTO);
+        log.info(USER_DTO.getValue(), userDTO);
         User user = userService.createUser(userDTO);
-        log.info("user: {}", user);
+        log.info(USER.getValue(), user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
     @GetMapping("{userId}")
     public ResponseEntity<User> getUserById(@Valid @NonNull @PathVariable Integer userId) {
-        log.info("userId: {}", userId);
+        log.info(ID.getValue(), userId);
         User user = userService.getUserById(userId);
-        log.info("user: {}", user);
+        log.info(USER.getValue(), user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
-        log.info("users: {}", users);
+        log.info(USER.getValue(), users);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @PutMapping("{userId}")
     public ResponseEntity<User> updateUserById(@Valid @NonNull @PathVariable Integer userId,
                                                @Valid @RequestBody UserDTO userDTO) {
-        log.info("userId: {}, userDTO: {}", userId, userDTO);
+        log.info(ID.getValue(), userId);
+        log.info(USER_DTO.getValue(), userDTO);
         User user = userService.updateUserById(userId, userDTO);
-        log.info("user: {}", user);
+        log.info(USER.getValue(), user);
         if (user != null) {
             return new ResponseEntity<>(user, HttpStatus.OK);
         }
@@ -62,7 +63,7 @@ public class UserController {
 
     @DeleteMapping("{userId}")
     public ResponseEntity<HttpStatus> deleteUserById(@Valid @NonNull @PathVariable Integer userId) {
-        log.info("userId: {}", userId);
+        log.info(ID.getValue(), userId);
         return userService.deleteUserById(userId);
     }
 

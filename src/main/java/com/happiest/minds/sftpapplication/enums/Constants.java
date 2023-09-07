@@ -11,8 +11,28 @@ public enum Constants {
     ADMIN("admin"),
     EXCEPTION("Exception: {}"),
     FILES_CONTENT_RETRIEVED("Files contents retrieved successfully"),
-    FILES_CONTENT_SAVED("Files contents saved to database successfully");
-
+    FILES_CONTENT_SAVED("Files contents saved to database successfully"),
+    ID_NOT_FOUND("ID not found"),
+    USERNAME_NOT_FOUND("Username not found!"),
+    ID("Id: {}"),
+    EMPLOYEE_DTO("employeeDTO: {}"),
+    EMPLOYEE("employee:{}"),
+    TOKEN_DTO("tokenDTO: {}"),
+    ORGANIZATION_DTO("organizationDTO: {}"),
+    ORGANIZATION("organization: {}"),
+    PERMISSION_DTO("permissionDTO: {}"),
+    PERMISSION("permission: {}"),
+    ROLE_DTO("roleDTO: {}"),
+    ROLE("role: {}"),
+    ROLE_PERMISSION_DTO("rolePermissionDTO: {}"),
+    ROLE_PERMISSION("rolePermission: {}"),
+    LOCATION("Location: {}"),
+    LOCATION_FILENAME("Location: {}, Filename: {}"),
+    USER_DTO("userDTO: {}"),
+    USER("user: {}"),
+    USER_ROLE_DTO("userRoleDTO: {}"),
+    USER_ROLE("userRole: {}"),
+    ACCESS_DENIED("Access denied");
 
     private final String value;
 

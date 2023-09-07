@@ -7,8 +7,9 @@ import java.time.LocalDateTime;
 @Data
 public class TokenResponse {
 
-    private String username;
-    private String jwtToken;
-    private LocalDateTime tokenExpiryTime;
+    private String accessToken;
+    private String refreshToken;
+    private LocalDateTime accessTokenExpiry;
+    private LocalDateTime refreshTokenExpiry;
     private String tokenSetToCache;
 }

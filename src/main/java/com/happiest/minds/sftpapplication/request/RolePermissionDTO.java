@@ -2,9 +2,11 @@ package com.happiest.minds.sftpapplication.request;
 
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 @Data
+@NoArgsConstructor
 public class RolePermissionDTO {
 
     @NonNull

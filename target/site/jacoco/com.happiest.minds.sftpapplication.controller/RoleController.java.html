@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RoleController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SFTP Application</a> &gt; <a href="index.source.html" class="el_package">com.happiest.minds.sftpapplication.controller</a> &gt; <span class="el_source">RoleController.java</span></div><h1>RoleController.java</h1><pre class="source lang-java linenums">package com.happiest.minds.sftpapplication.controller;
+
+import com.happiest.minds.sftpapplication.request.RoleDTO;
+import com.happiest.minds.sftpapplication.response.Role;
+import com.happiest.minds.sftpapplication.service.RoleService;
+import jakarta.validation.Valid;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static com.happiest.minds.sftpapplication.enums.Constants.*;
+
+@RestController
+@RequestMapping(&quot;api/sftp/application/role&quot;)
+<span class="fc" id="L20">@Slf4j</span>
+<span class="fc" id="L21">public class RoleController {</span>
+    @Autowired
+    public RoleService roleService;
+
+    @PostMapping
+    public ResponseEntity&lt;Role&gt; createRole(@RequestBody RoleDTO roleDTO) {
+<span class="fc" id="L27">        log.info(&quot;roleDTO: {}&quot;, roleDTO);</span>
+<span class="fc" id="L28">        Role role = roleService.createRole(roleDTO);</span>
+<span class="fc" id="L29">        log.info(&quot;role: {}&quot;, role);</span>
+<span class="fc" id="L30">        return new ResponseEntity&lt;&gt;(role, HttpStatus.CREATED);</span>
+    }
+
+    @GetMapping(&quot;{roleId}&quot;)
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">    public ResponseEntity&lt;Role&gt; getRoleById(@Valid @NonNull @PathVariable Integer roleId) {</span>
+<span class="fc" id="L35">        log.info(&quot;roleId: {}&quot;, roleId);</span>
+<span class="fc" id="L36">        Role role = roleService.getRoleById(roleId);</span>
+<span class="fc" id="L37">        log.info(&quot;role: {}&quot;, role);</span>
+<span class="fc" id="L38">        return new ResponseEntity&lt;&gt;(role, HttpStatus.OK);</span>
+    }
+
+    @GetMapping
+    public ResponseEntity&lt;List&lt;Role&gt;&gt; getAllRoles() {
+<span class="fc" id="L43">        List&lt;Role&gt; roles = roleService.getAllRoles();</span>
+<span class="fc" id="L44">        log.info(&quot;roles: {}&quot;, roles);</span>
+<span class="fc" id="L45">        return new ResponseEntity&lt;&gt;(roles, HttpStatus.OK);</span>
+
+    }
+
+    @PutMapping(&quot;{roleId}&quot;)
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">    public ResponseEntity&lt;Role&gt; updateRoleById(@Valid @NonNull @PathVariable Integer roleId,</span>
+                                               @Valid @RequestBody RoleDTO roleDTO) {
+<span class="fc" id="L52">        log.info(&quot;Input request:: roleId: {}, roleDTO: {}&quot;, roleId, roleDTO);</span>
+<span class="fc" id="L53">        Role role = roleService.updateRoleById(roleId, roleDTO);</span>
+<span class="fc" id="L54">        log.info(&quot;role: {}&quot;, role);</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">        if (role != null) {</span>
+<span class="fc" id="L56">            return new ResponseEntity&lt;&gt;(role, HttpStatus.OK);</span>
+        }
+<span class="nc" id="L58">        log.error(NO_DATA_FOUND.getValue().concat(role.getRoleId().toString()));</span>
+<span class="nc" id="L59">        return new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND);</span>
+    }
+
+    @DeleteMapping(&quot;{roleId}&quot;)
+<span class="nc bnc" id="L63" title="All 2 branches missed.">    public ResponseEntity&lt;HttpStatus&gt; deleteRole(@Valid @NonNull @PathVariable Integer roleId) {</span>
+<span class="nc" id="L64">        log.info(&quot;roleId: {}&quot;, roleId);</span>
+<span class="nc" id="L65">        return roleService.deleteRoleById(roleId);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrganizationService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SFTP Application</a> &gt; <a href="index.source.html" class="el_package">com.happiest.minds.sftpapplication.service</a> &gt; <span class="el_source">OrganizationService.java</span></div><h1>OrganizationService.java</h1><pre class="source lang-java linenums">package com.happiest.minds.sftpapplication.service;
+
+import com.happiest.minds.sftpapplication.config.UserManagementBaseURL;
+import com.happiest.minds.sftpapplication.exception.DataNotFoundException;
+import com.happiest.minds.sftpapplication.request.OrganizationDTO;
+import com.happiest.minds.sftpapplication.response.Organization;
+import com.happiest.minds.sftpapplication.utility.RedisUtility;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
+import reactor.core.publisher.Mono;
+
+import java.util.List;
+
+import static com.happiest.minds.sftpapplication.enums.Constants.*;
+
+@Service
+<span class="fc" id="L23">@Slf4j</span>
+<span class="fc" id="L24">public class OrganizationService {</span>
+
+
+    @Autowired
+    UserManagementBaseURL userManagementBaseURL;
+
+    @Autowired
+    RedisUtility redisUtility;
+
+    public Organization createOrganization(OrganizationDTO organizationDTO) {
+<span class="nc" id="L34">        WebClient webClient = WebClient.create(userManagementBaseURL.getOrganizationURL());</span>
+<span class="nc" id="L35">        return webClient.post()</span>
+<span class="nc" id="L36">                .headers(httpHeaders -&gt; httpHeaders.setBearerAuth(redisUtility.getAdminToken()))</span>
+<span class="nc" id="L37">                .body(Mono.just(organizationDTO), Organization.class)</span>
+<span class="nc" id="L38">                .retrieve()</span>
+<span class="nc" id="L39">                .bodyToMono(Organization.class).block();</span>
+    }
+
+    public Organization getOrganizationById(Integer orgId) {
+<span class="nc" id="L43">        WebClient webClient = WebClient.create(userManagementBaseURL.getOrganizationURL());</span>
+<span class="nc" id="L44">        return webClient.get()</span>
+<span class="nc" id="L45">                .uri(uriBuilder -&gt; uriBuilder</span>
+<span class="nc" id="L46">                        .path(ID_PLACE_HOLDER.getValue())</span>
+<span class="nc" id="L47">                        .build(orgId))</span>
+<span class="nc" id="L48">                .headers(httpHeaders -&gt; httpHeaders.setBearerAuth(redisUtility.getAdminToken()))</span>
+<span class="nc" id="L49">                .retrieve()</span>
+<span class="nc" id="L50">                .bodyToMono(Organization.class)</span>
+<span class="nc" id="L51">                .onErrorResume(WebClientResponseException.class, e -&gt; {</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">                    if (e.getStatusCode() == HttpStatus.NOT_FOUND) {</span>
+<span class="nc" id="L53">                        return Mono.error(new DataNotFoundException(ID_NOT_FOUND.getValue()));</span>
+                    } else {
+<span class="nc" id="L55">                        return Mono.error(new Exception(e.getMessage()));</span>
+                    }
+                })
+<span class="nc" id="L58">                .block();</span>
+    }
+
+    public List&lt;Organization&gt; getOrganizations() {
+<span class="nc" id="L62">        WebClient webClient = WebClient.create(userManagementBaseURL.getOrganizationURL());</span>
+<span class="nc" id="L63">        return webClient.get()</span>
+<span class="nc" id="L64">                .headers(httpHeaders -&gt; httpHeaders.setBearerAuth(redisUtility.getAdminToken()))</span>
+<span class="nc" id="L65">                .retrieve()</span>
+<span class="nc" id="L66">                .bodyToMono(new ParameterizedTypeReference&lt;List&lt;Organization&gt;&gt;() {</span>
+                })
+<span class="nc" id="L68">                .block();</span>
+    }
+
+    public Organization updateOrganizationById(Integer orgId, OrganizationDTO organizationDTO) {
+<span class="nc" id="L72">        WebClient webClient = WebClient.create(userManagementBaseURL.getOrganizationURL());</span>
+<span class="nc" id="L73">        return webClient.put()</span>
+<span class="nc" id="L74">                .uri(uriBuilder -&gt; uriBuilder</span>
+<span class="nc" id="L75">                        .path(ID_PLACE_HOLDER.getValue())</span>
+<span class="nc" id="L76">                        .build(orgId))</span>
+<span class="nc" id="L77">                .headers(httpHeaders -&gt; httpHeaders.setBearerAuth(redisUtility.getAdminToken()))</span>
+<span class="nc" id="L78">                .body(Mono.just(organizationDTO), Organization.class)</span>
+<span class="nc" id="L79">                .retrieve()</span>
+<span class="nc" id="L80">                .bodyToMono(Organization.class)</span>
+<span class="nc" id="L81">                .onErrorResume(WebClientResponseException.class, e -&gt; {</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">                    if (e.getStatusCode() == HttpStatus.NOT_FOUND) {</span>
+<span class="nc" id="L83">                        return Mono.error(new DataNotFoundException(ID_NOT_FOUND.getValue()));</span>
+                    } else {
+<span class="nc" id="L85">                        return Mono.error(new Exception(e.getMessage()));</span>
+                    }
+                })
+<span class="nc" id="L88">                .block();</span>
+    }
+
+    public ResponseEntity&lt;HttpStatus&gt; deleteOrganizationById(Integer orgId) {
+<span class="nc" id="L92">        WebClient webClient = WebClient.create(userManagementBaseURL.getOrganizationURL());</span>
+<span class="nc" id="L93">        ResponseEntity&lt;HttpStatus&gt; response = webClient.delete()</span>
+<span class="nc" id="L94">                .uri(uriBuilder -&gt; uriBuilder</span>
+<span class="nc" id="L95">                        .path(ID_PLACE_HOLDER.getValue())</span>
+<span class="nc" id="L96">                        .build(orgId))</span>
+<span class="nc" id="L97">                .headers(httpHeaders -&gt; httpHeaders.setBearerAuth(redisUtility.getAdminToken()))</span>
+<span class="nc" id="L98">                .retrieve().toEntity(HttpStatus.class)</span>
+<span class="nc" id="L99">                .onErrorResume(WebClientResponseException.class, e -&gt; {</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">                    if (e.getStatusCode() == HttpStatus.NOT_FOUND) {</span>
+<span class="nc" id="L101">                        return Mono.error(new DataNotFoundException(ID_NOT_FOUND.getValue()));</span>
+                    } else {
+<span class="nc" id="L103">                        return Mono.error(new Exception(e.getMessage()));</span>
+                    }
+                })
+<span class="nc" id="L106">                .block();</span>
+<span class="nc" id="L107">        log.info(&quot;deleteOrganizationById:: status code : {}&quot;, response.getStatusCode());</span>
+<span class="nc" id="L108">        return response;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

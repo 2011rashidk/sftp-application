@@ -1,6 +1,7 @@
 package com.happiest.minds.sftpapplication.service;
 
 import com.happiest.minds.sftpapplication.config.UserManagementBaseURL;
+import com.happiest.minds.sftpapplication.exception.DataNotFoundException;
 import com.happiest.minds.sftpapplication.request.OrganizationDTO;
 import com.happiest.minds.sftpapplication.response.Organization;
 import com.happiest.minds.sftpapplication.utility.RedisUtility;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -45,7 +47,15 @@ public class OrganizationService {
                         .build(orgId))
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(redisUtility.getAdminToken()))
                 .retrieve()
-                .bodyToMono(Organization.class).block();
+                .bodyToMono(Organization.class)
+                .onErrorResume(WebClientResponseException.class, e -> {
+                    if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
+                        return Mono.error(new DataNotFoundException(ID_NOT_FOUND.getValue()));
+                    } else {
+                        return Mono.error(new Exception(e.getMessage()));
+                    }
+                })
+                .block();
     }
 
     public List<Organization> getOrganizations() {
@@ -67,7 +77,15 @@ public class OrganizationService {
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(redisUtility.getAdminToken()))
                 .body(Mono.just(organizationDTO), Organization.class)
                 .retrieve()
-                .bodyToMono(Organization.class).block();
+                .bodyToMono(Organization.class)
+                .onErrorResume(WebClientResponseException.class, e -> {
+                    if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
+                        return Mono.error(new DataNotFoundException(ID_NOT_FOUND.getValue()));
+                    } else {
+                        return Mono.error(new Exception(e.getMessage()));
+                    }
+                })
+                .block();
     }
 
     public ResponseEntity<HttpStatus> deleteOrganizationById(Integer orgId) {
@@ -77,7 +95,15 @@ public class OrganizationService {
                         .path(ID_PLACE_HOLDER.getValue())
                         .build(orgId))
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(redisUtility.getAdminToken()))
-                .retrieve().toEntity(HttpStatus.class).block();
+                .retrieve().toEntity(HttpStatus.class)
+                .onErrorResume(WebClientResponseException.class, e -> {
+                    if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
+                        return Mono.error(new DataNotFoundException(ID_NOT_FOUND.getValue()));
+                    } else {
+                        return Mono.error(new Exception(e.getMessage()));
+                    }
+                })
+                .block();
         log.info("deleteOrganizationById:: status code : {}", response.getStatusCode());
         return response;
     }

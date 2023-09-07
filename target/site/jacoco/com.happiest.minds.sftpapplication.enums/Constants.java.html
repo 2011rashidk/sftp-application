@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Constants.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SFTP Application</a> &gt; <a href="index.source.html" class="el_package">com.happiest.minds.sftpapplication.enums</a> &gt; <span class="el_source">Constants.java</span></div><h1>Constants.java</h1><pre class="source lang-java linenums">package com.happiest.minds.sftpapplication.enums;
+
+<span class="nc" id="L3">public enum Constants {</span>
+
+<span class="nc" id="L5">    LIST_OF_FILES_RETRIEVED(&quot;list of files retrieved successfully&quot;),</span>
+<span class="nc" id="L6">    FILE_EMPTY(&quot;File is null or empty&quot;),</span>
+<span class="nc" id="L7">    EMPLOYEES(&quot;/employees&quot;),</span>
+<span class="nc" id="L8">    ID_PLACE_HOLDER(&quot;/{id}&quot;),</span>
+<span class="nc" id="L9">    NO_DATA_FOUND(&quot;Not found data with id: &quot;),</span>
+<span class="nc" id="L10">    RECORD_DELETED_FOR_ID(&quot;Record deleted for id: &quot;),</span>
+<span class="nc" id="L11">    ADMIN(&quot;admin&quot;),</span>
+<span class="nc" id="L12">    EXCEPTION(&quot;Exception: {}&quot;),</span>
+<span class="nc" id="L13">    FILES_CONTENT_RETRIEVED(&quot;Files contents retrieved successfully&quot;),</span>
+<span class="nc" id="L14">    FILES_CONTENT_SAVED(&quot;Files contents saved to database successfully&quot;),</span>
+<span class="nc" id="L15">    ID_NOT_FOUND(&quot;ID not found&quot;),</span>
+<span class="nc" id="L16">    USERNAME_NOT_FOUND(&quot;Username not found!&quot;);</span>
+
+
+    private final String value;
+
+<span class="nc" id="L21">    Constants(String value) {</span>
+<span class="nc" id="L22">        this.value = value;</span>
+<span class="nc" id="L23">    }</span>
+
+    public String getValue() {
+<span class="nc" id="L26">        return value;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

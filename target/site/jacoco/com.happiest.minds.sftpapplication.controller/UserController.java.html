@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">SFTP Application</a> &gt; <a href="index.source.html" class="el_package">com.happiest.minds.sftpapplication.controller</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">package com.happiest.minds.sftpapplication.controller;
+
+import com.happiest.minds.sftpapplication.request.UserDTO;
+import com.happiest.minds.sftpapplication.response.User;
+import com.happiest.minds.sftpapplication.service.UserService;
+import jakarta.validation.Valid;
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static com.happiest.minds.sftpapplication.enums.Constants.*;
+
+
+@RestController
+@RequestMapping(&quot;api/sftp/application/user&quot;)
+<span class="fc" id="L21">@Slf4j</span>
+<span class="fc" id="L22">public class UserController {</span>
+
+    @Autowired
+    public UserService userService;
+
+    @PostMapping
+    public ResponseEntity&lt;User&gt; createUser(@Valid @RequestBody UserDTO userDTO) {
+<span class="fc" id="L29">        log.info(&quot;userDTO: {}&quot;, userDTO);</span>
+<span class="fc" id="L30">        User user = userService.createUser(userDTO);</span>
+<span class="fc" id="L31">        log.info(&quot;user: {}&quot;, user);</span>
+<span class="fc" id="L32">        return new ResponseEntity&lt;&gt;(user, HttpStatus.CREATED);</span>
+    }
+
+    @GetMapping(&quot;{userId}&quot;)
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">    public ResponseEntity&lt;User&gt; getUserById(@Valid @NonNull @PathVariable Integer userId) {</span>
+<span class="fc" id="L37">        log.info(&quot;userId: {}&quot;, userId);</span>
+<span class="fc" id="L38">        User user = userService.getUserById(userId);</span>
+<span class="fc" id="L39">        log.info(&quot;user: {}&quot;, user);</span>
+<span class="fc" id="L40">        return new ResponseEntity&lt;&gt;(user, HttpStatus.OK);</span>
+    }
+
+    @GetMapping
+    public ResponseEntity&lt;List&lt;User&gt;&gt; getAllUsers() {
+<span class="fc" id="L45">        List&lt;User&gt; users = userService.getAllUsers();</span>
+<span class="fc" id="L46">        log.info(&quot;users: {}&quot;, users);</span>
+<span class="fc" id="L47">        return new ResponseEntity&lt;&gt;(users, HttpStatus.OK);</span>
+    }
+
+    @PutMapping(&quot;{userId}&quot;)
+<span class="pc bpc" id="L51" title="1 of 2 branches missed.">    public ResponseEntity&lt;User&gt; updateUserById(@Valid @NonNull @PathVariable Integer userId,</span>
+                                               @Valid @RequestBody UserDTO userDTO) {
+<span class="fc" id="L53">        log.info(&quot;userId: {}, userDTO: {}&quot;, userId, userDTO);</span>
+<span class="fc" id="L54">        User user = userService.updateUserById(userId, userDTO);</span>
+<span class="fc" id="L55">        log.info(&quot;user: {}&quot;, user);</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (user != null) {</span>
+<span class="fc" id="L57">            return new ResponseEntity&lt;&gt;(user, HttpStatus.OK);</span>
+        }
+<span class="nc" id="L59">        log.error(NO_DATA_FOUND.getValue().concat(userId.toString()));</span>
+<span class="nc" id="L60">        return new ResponseEntity&lt;&gt;(HttpStatus.NOT_FOUND);</span>
+    }
+
+    @DeleteMapping(&quot;{userId}&quot;)
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">    public ResponseEntity&lt;HttpStatus&gt; deleteUserById(@Valid @NonNull @PathVariable Integer userId) {</span>
+<span class="fc" id="L65">        log.info(&quot;userId: {}&quot;, userId);</span>
+<span class="fc" id="L66">        return userService.deleteUserById(userId);</span>
+    }
+
+}
+	
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

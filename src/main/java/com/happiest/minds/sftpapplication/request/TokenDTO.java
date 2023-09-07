@@ -17,4 +17,5 @@ public class TokenDTO {
 
     @NotEmpty
     private String password;
+
 }

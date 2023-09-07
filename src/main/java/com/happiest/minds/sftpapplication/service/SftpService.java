@@ -2,6 +2,8 @@ package com.happiest.minds.sftpapplication.service;
 
 import com.happiest.minds.sftpapplication.dto.EmployeeDTO;
 import com.happiest.minds.sftpapplication.response.Response;
+import com.happiest.minds.sftpapplication.utility.KafkaUtility;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.example.JsonToPojoUtil;
@@ -20,6 +22,7 @@ import static com.happiest.minds.sftpapplication.enums.Constants.*;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class SftpService {
 
     @Value("${sftp.username}")
@@ -30,6 +33,15 @@ public class SftpService {
 
     @Autowired
     EmployeeService employeeService;
+
+    @Autowired
+    KafkaUtility kafkaUtility;
+
+    @Value("${sftp.success.topic}")
+    private String successTopic;
+
+    @Value("${sftp.failure.topic}")
+    private String failureTopic;
 
     public ResponseEntity<Response> getListOfFiles(String location) {
         try {
@@ -60,7 +72,9 @@ public class SftpService {
         }
     }
 
-    public ResponseEntity<Response> loadFile(String location, String filename) {
+
+    public ResponseEntity<Response> loadFile(String location, String filename, String jwtToken) {
+        Response response;
         try {
             SFTPUtil sftpUtil = new SFTPUtil();
             JsonToPojoUtil jsonToPojoUtil = new JsonToPojoUtil();
@@ -81,11 +95,15 @@ public class SftpService {
                             dto.getOrgId(),
                             dto.getDepartment()))
                     .collect(Collectors.toList());
-            employeeService.createEmployees(employees);
-            return new ResponseEntity<>(new Response(HttpStatus.OK, FILES_CONTENT_SAVED.getValue(), employeeDTOS), HttpStatus.OK);
+            employeeService.createEmployees(employees, jwtToken);
+            response = new Response(HttpStatus.OK, FILES_CONTENT_SAVED.getValue(), employeeDTOS);
+            kafkaUtility.publishToKafka(response, successTopic);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             log.error(e.getMessage());
-            return new ResponseEntity<>(new Response(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null), HttpStatus.INTERNAL_SERVER_ERROR);
+            response = new Response(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage(), null);
+            kafkaUtility.publishToKafka(response, failureTopic);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
